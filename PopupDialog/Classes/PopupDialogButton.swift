@@ -159,10 +159,22 @@ open class PopupDialogButton: UIButton {
         constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[leftSeparator]|", options: [], metrics: nil, views: views)
         NSLayoutConstraint.activate(constraints)
     }
-
+    
     open override var isHighlighted: Bool {
         didSet {
-            isHighlighted ? pv_fade(.out, 0.5) : pv_fade(.in, 1.0)
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveLinear, animations: {
+                if self.isHighlighted {
+                    self.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1.0)
+                } else {
+                    self.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 0.0)
+                }
+            })
+        }
+    }
+    
+    open override var isEnabled: Bool {
+        didSet {
+            isEnabled ? pv_fade(.in, 1.0) : pv_fade(.out, 0.25)
         }
     }
 }
